@@ -4,19 +4,19 @@ A ComfyUI custom node for rendering a continuous Viggle Remake swap across multi
 
 ## Contents
 
-- `nodes.py` and `__init__.py`: the custom node package and its shared Viggle Remake conditioning helpers.
+- `nodes.py` and `__init__.py`: the long video custom node. It uses the helper classes from the separately installed official Viggle Remake package.
 - `street-dance-long-api.json`: API-format example for a continuous solo dance. The source video and character reference image are not included.
 
 ## Install
 
-Clone this repository directly inside `ComfyUI/custom_nodes/`, then restart ComfyUI:
+Install the official `ComfyUI-Viggle-Remake` custom node first. Then clone this repository directly inside `ComfyUI/custom_nodes/` and restart ComfyUI:
 
 ```bash
 cd ComfyUI/custom_nodes
 git clone https://github.com/hojenaia/viggle-remake-comfyui-long-take.git
 ```
 
-Confirm that **Viggle Remake Long Video** appears in the node list. The model files and LoRA are not included.
+The official Viggle Remake package provides the original Conditioning, Keyframe Until, and Noise nodes; this repository registers only **Viggle Remake Long Video**. Confirm that it appears in the node list. The model files and LoRA are not included.
 
 ## Node inputs
 
