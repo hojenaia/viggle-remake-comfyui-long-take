@@ -9,9 +9,14 @@ A ComfyUI custom node for rendering a continuous Viggle Remake swap across multi
 
 ## Install
 
-Copy this repository into `ComfyUI/custom_nodes/` (for example, `ComfyUI/custom_nodes/Viggle-Remake-Long-Take/`) and restart ComfyUI. Confirm that **Viggle Remake Long Video** appears in the node list.
+Clone this repository directly inside `ComfyUI/custom_nodes/`, then restart ComfyUI:
 
-The workflow expects `source_24fps.mp4` and `character_reference.png` under ComfyUI's `input/` directory. Update the loader filenames and prompt for your own material. The model files and LoRA are not included.
+```bash
+cd ComfyUI/custom_nodes
+git clone https://github.com/hojenaia/viggle-remake-comfyui-long-take.git
+```
+
+Confirm that **Viggle Remake Long Video** appears in the node list. The model files and LoRA are not included.
 
 ## Node inputs
 
