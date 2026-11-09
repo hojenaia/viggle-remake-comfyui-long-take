@@ -1,0 +1,228 @@
+{
+ "1": {
+  "inputs": {
+   "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  },
+  "class_type": "UNETLoader",
+  "_meta": {
+   "title": "Load H3 transformer (fl2va)",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "2": {
+  "inputs": {
+   "lora_name": "viggle_remake_swap_comfyui.safetensors",
+   "strength_model": 1,
+   "model": [
+    "1",
+    0
+   ]
+  },
+  "class_type": "LoraLoaderBypassModelOnly",
+  "_meta": {
+   "title": "Remake LoRA",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "3": {
+  "inputs": {
+   "keyframe_until": 0.9,
+   "model": [
+    "2",
+    0
+   ]
+  },
+  "class_type": "RemakeKeyframeUntil",
+  "_meta": {
+   "title": "Viggle Remake Keyframe Until"
+  }
+ },
+ "4": {
+  "inputs": {
+   "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  },
+  "class_type": "CLIPLoader",
+  "_meta": {
+   "title": "Load Qwen3-VL text encoder",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "5": {
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  },
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "Load video VAE",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "6": {
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  },
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "Load audio VAE",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "7": {
+  "inputs": {
+   "file": "source_24fps.mp4",
+   "video-preview": ""
+  },
+  "class_type": "LoadVideo",
+  "_meta": {
+   "title": "Source clip (24 fps)",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "8": {
+  "inputs": {
+   "video": [
+    "7",
+    0
+   ]
+  },
+  "class_type": "GetVideoComponents",
+  "_meta": {
+   "title": "Get Video Components",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "9": {
+  "inputs": {
+   "image": "character_reference.png"
+  },
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "Reference 1 (painted frame)",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "14": {
+  "inputs": {
+   "sampler_name": "euler"
+  },
+  "class_type": "KSamplerSelect",
+  "_meta": {
+   "title": "KSamplerSelect",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "15": {
+  "inputs": {
+   "sigmas": "1.0, 0.990476, 0.965243, 0.923077, 0.8, 0.631579, 0.0"
+  },
+  "class_type": "ManualSigmas",
+  "_meta": {
+   "title": "Sigmas (6 forwards)",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "19": {
+  "inputs": {
+   "fps": 24,
+   "bit_depth": "auto",
+   "color_space": "sRGB",
+   "chroma_subsampling": "auto",
+   "codec": "none",
+   "images": [
+    "21",
+    0
+   ],
+   "audio": [
+    "21",
+    1
+   ]
+  },
+  "class_type": "CreateVideo",
+  "_meta": {
+   "title": "Create Video",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "20": {
+  "inputs": {
+   "filename_prefix": "viggle_remake/long_take_swap",
+   "format": "mp4",
+   "format.codec": "auto",
+   "codec": "h264",
+   "codec.encoding": "auto",
+   "video": [
+    "19",
+    0
+   ]
+  },
+  "class_type": "SaveVideo",
+  "_meta": {
+   "title": "Save Video",
+   "cnr_id": "comfy-core",
+   "ver": "0.44.0"
+  }
+ },
+ "21": {
+  "class_type": "RemakeLongVideo",
+  "inputs": {
+   "model": [
+    "3",
+    0
+   ],
+   "clip": [
+    "4",
+    0
+   ],
+   "vae": [
+    "5",
+    0
+   ],
+   "audio_vae": [
+    "6",
+    0
+   ],
+   "source": [
+    "8",
+    0
+   ],
+   "audio": [
+    "8",
+    1
+   ],
+   "prompt": "subject_definitions:\n\n<Video 1> is the source video for the editing task: one continuous vertical dance performance on an urban street at dusk. A solo dancer moves in the foreground while pedestrians, parked scooters, storefronts and city buildings remain in the background.\n\n<Picture 1> is the character reference sheet: its facial close-up and front, side and back views show the same adult woman and her complete outfit.\n\n<Subject 1> is the adult woman shown in <Picture 1>. She has a distinctive voluminous dark-brown afro arranged in two rounded puff-shaped sections, expressive dark eyes with green eyeshadow and black winged eyeliner, defined eyebrows, warm blush and full red lips. She wears large spherical green earrings, a layered gold pearl necklace, a gold ribbed high-neck top, a fitted red sleeveless tailored jacket over a long-sleeved brown leopard-print blouse, fitted black trousers and brown leather ankle boots. Her face, hairstyle, makeup, accessories and outfit match <Picture 1> and remain consistent throughout the dance.\n\nsummary:\n\n[video editing + character replacement] The target video preserves the same solo street dance from <Video 1>, with the original man replaced by <Subject 1>. She performs the same steps, turns and gestures at the same pace and in the same position. The urban street, pedestrians, scooters, buildings, dusk lighting, camera movement and framing remain unchanged.\n\nretention_analysis:\n\n<Video 1> (source video editing): fully_preserved - the continuous dance, all body movements and timing, the dancer's path through the frame, camera movement, street perspective, buildings, shopfronts, overhead wires, scooters, pedestrians, lighting and shadows are preserved.\n\n<Picture 1> (character reference): reference - the woman's exact face, two-part afro silhouette, green eye makeup, green spherical earrings, layered gold necklace, red jacket, leopard-print sleeves, gold ribbed top, black trousers and brown ankle boots define <Subject 1>.\n\n<Subject 1> (appears throughout the dance): fully_preserved - the same woman and complete outfit from <Picture 1> remain stable through every turn, lean and arm gesture. Her face and afro remain recognizable. The source man's headphones, purple sweatshirt, dark cargo trousers and sneakers do not remain.\n\ndetailed_description:\n\n[Shot 1] One continuous vertical street-dance shot. <Subject 1> dances alone in the foreground, stepping and shifting her weight from side to side, bending her knees, leaning her torso, turning through different angles, and sweeping, extending and lifting her arms in the same rhythm as the source dancer. She moves naturally across the same small area of pavement and remains the central performer. Her red jacket, leopard-print sleeves, gold top, jewelry, distinctive afro, black trousers and brown boots remain consistent while she dances. Preserve the source camera's continuous movement and the changing perspective of the street. Keep the surrounding pedestrians, scooters, storefronts, building facades, overhead wires and dusk lighting as they appear in the source. No additional dancers or props are introduced.\n\noverall_soundscape:\n\nThe source video has no audio track. The output remains silent, with no added speech, music or sound effects.\n\nnon_diegetic_music:\n\nN/A\n",
+   "ref_1": [
+    "9",
+    0
+   ],
+   "pins": "",
+   "window_frames": 294,
+   "short_edge": 480,
+   "sampler": [
+    "14",
+    0
+   ],
+   "sigmas": [
+    "15",
+    0
+   ],
+   "seed": 222938817175514
+  },
+  "_meta": {
+   "title": "Viggle Remake Long Video"
+  }
+ }
+}
