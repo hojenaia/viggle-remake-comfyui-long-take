@@ -1,0 +1,876 @@
+{
+  "id": "c1d7ba07-3b5d-4709-993e-b239b3c4838e",
+  "revision": 0,
+  "last_node_id": 26,
+  "last_link_id": 40,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "pos": [
+        129.2537060471484,
+        50.90664661326548
+      ],
+      "size": [
+        441.18923924073067,
+        86.00358386504736
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "title": "Load H3 transformer (fl2va)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0",
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    {
+      "id": 2,
+      "type": "LoraLoaderBypassModelOnly",
+      "pos": [
+        612.8498071971244,
+        48.73970542458781
+      ],
+      "size": [
+        425.08331909179685,
+        82
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "title": "Remake LoRA",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0",
+        "Node name for S&R": "LoraLoaderBypassModelOnly"
+      },
+      "widgets_values": [
+        "viggle_remake_swap_comfyui.safetensors",
+        1
+      ],
+      "widgets_values_named": {
+        "lora_name": "viggle_remake_swap_comfyui.safetensors",
+        "strength_model": 1
+      }
+    },
+    {
+      "id": 3,
+      "type": "RemakeKeyframeUntil",
+      "pos": [
+        1071.8414200342527,
+        49.82317601892666
+      ],
+      "size": [
+        299.68334045410154,
+        58
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            30
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RemakeKeyframeUntil"
+      },
+      "widgets_values": [
+        0.9
+      ],
+      "widgets_values_named": {
+        "keyframe_until": 0.9
+      }
+    },
+    {
+      "id": 4,
+      "type": "CLIPLoader",
+      "pos": [
+        298.27511876400575,
+        189.23064619822512
+      ],
+      "size": [
+        270,
+        106
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            31
+          ]
+        }
+      ],
+      "title": "Load Qwen3-VL text encoder",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0",
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+        "minimax",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+        "type": "minimax",
+        "device": "default"
+      }
+    },
+    {
+      "id": 5,
+      "type": "VAELoader",
+      "pos": [
+        642.8187677637534,
+        259.45964526438433
+      ],
+      "size": [
+        377.2644741747397,
+        62.00470028097274
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            32
+          ]
+        }
+      ],
+      "title": "Load video VAE",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0",
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "minimax_h3_video_vae_fp16.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+      }
+    },
+    {
+      "id": 6,
+      "type": "VAELoader",
+      "pos": [
+        643.9022383580923,
+        369.4497624719885
+      ],
+      "size": [
+        383.76529774077267,
+        62.00471681342199
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            33
+          ]
+        }
+      ],
+      "title": "Load audio VAE",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0",
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "minimax_h3_audio_vae_fp32.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+      }
+    },
+    {
+      "id": 8,
+      "type": "GetVideoComponents",
+      "pos": [
+        844.7035600832011,
+        760.9718108191216
+      ],
+      "size": [
+        193.54999389648438,
+        106
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 29
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            36
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            37
+          ]
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "bit_depth",
+          "type": "COMBO",
+          "links": null
+        },
+        {
+          "name": "color_space",
+          "type": "COMBO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0",
+        "Node name for S&R": "GetVideoComponents"
+      }
+    },
+    {
+      "id": 9,
+      "type": "LoadImage",
+      "pos": [
+        788.0038274051572,
+        965.5579400473157
+      ],
+      "size": [
+        282.83333587646484,
+        102
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            38
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "title": "Reference 1 (painted frame)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "RCXEHXGHSKV55DKM220E3T3P70.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "RCXEHXGHSKV55DKM220E3T3P70.png",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 14,
+      "type": "KSamplerSelect",
+      "pos": [
+        1048.0367700464756,
+        434.7946416327817
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            34
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0",
+        "Node name for S&R": "KSamplerSelect"
+      },
+      "widgets_values": [
+        "euler"
+      ],
+      "widgets_values_named": {
+        "sampler_name": "euler"
+      }
+    },
+    {
+      "id": 15,
+      "type": "ManualSigmas",
+      "pos": [
+        875.7649455466022,
+        583.7897002365838
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            35
+          ]
+        }
+      ],
+      "title": "Sigmas (6 forwards)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0",
+        "Node name for S&R": "ManualSigmas"
+      },
+      "widgets_values": [
+        "1.0, 0.990476, 0.965243, 0.923077, 0.8, 0.631579, 0.0"
+      ],
+      "widgets_values_named": {
+        "sigmas": "1.0, 0.990476, 0.965243, 0.923077, 0.8, 0.631579, 0.0"
+      }
+    },
+    {
+      "id": 19,
+      "type": "CreateVideo",
+      "pos": [
+        2035.4495255543452,
+        126.74958821698351
+      ],
+      "size": [
+        284.1500015258789,
+        174
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 39
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 40
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0",
+        "Node name for S&R": "CreateVideo"
+      },
+      "widgets_values": [
+        24,
+        "auto",
+        "sRGB",
+        "auto",
+        "none"
+      ],
+      "widgets_values_named": {
+        "fps": 24,
+        "bit_depth": "auto",
+        "color_space": "sRGB",
+        "chroma_subsampling": "auto",
+        "codec": "none"
+      }
+    },
+    {
+      "id": 20,
+      "type": "SaveVideo",
+      "pos": [
+        2365.4259973632825,
+        127.83305881132236
+      ],
+      "size": [
+        539.3570828519792,
+        908.0200698532566
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0"
+      },
+      "widgets_values": [
+        "viggle_remake/swap",
+        "mp4",
+        "auto",
+        "h264",
+        "auto"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "viggle_remake/swap",
+        "format": "mp4",
+        "format.codec": "auto",
+        "codec": "h264",
+        "codec.encoding": "auto"
+      }
+    },
+    {
+      "id": 23,
+      "type": "LoadVideo",
+      "pos": [
+        218.78269292530632,
+        762.7209536775385
+      ],
+      "size": [
+        282.83333587646484,
+        82
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            28
+          ]
+        }
+      ],
+      "title": "Source clip (24 fps)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.44.0",
+        "Node name for S&R": "LoadVideo"
+      },
+      "widgets_values": [
+        "20218504-hd_720_1280_24fps.mp4",
+        "image"
+      ],
+      "widgets_values_named": {
+        "file": "20218504-hd_720_1280_24fps.mp4",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 25,
+      "type": "Video Slice",
+      "pos": [
+        534.1841052826867,
+        777.198104893815
+      ],
+      "size": [
+        270,
+        106
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 28
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            29
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.45.0",
+        "Node name for S&R": "Video Slice"
+      },
+      "widgets_values": [
+        0,
+        25,
+        false
+      ],
+      "widgets_values_named": {
+        "start_time": 0,
+        "duration": 25,
+        "strict_duration": false
+      }
+    },
+    {
+      "id": 26,
+      "type": "RemakeLongVideoProtected",
+      "pos": [
+        1581.4736746815795,
+        240.44527499808046
+      ],
+      "size": [
+        411.57436530716865,
+        651.7738714877064
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 30
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 31
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 32
+        },
+        {
+          "name": "audio_vae",
+          "type": "VAE",
+          "link": 33
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 34
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 35
+        },
+        {
+          "name": "source",
+          "type": "IMAGE",
+          "link": 36
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 37
+        },
+        {
+          "name": "ref_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 38
+        },
+        {
+          "name": "ref_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "ref_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "ref_4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            39
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            40
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "hojenaia/viggle-remake-comfyui-long-take",
+        "ver": "ec17dc155f170ed764e1820d90ada1f5dfa49b0f",
+        "Node name for S&R": "RemakeLongVideoProtected"
+      },
+      "widgets_values": [
+        "subject_definitions:\n\n<Video 1> is the source video for the editing task: one continuous vertical studio dance performance, approximately 81 seconds long. A solo adult man dances on a white seamless paper sweep in front of a large off-white backdrop. Numerous translucent soap bubbles drift continuously across the foreground, around the performer, and against the backdrop. The camera is fixed in a high, slightly downward-looking vertical view, capturing his full body and the floor. Parts of the studio, including dark floor areas, side lighting stands and the edges of the paper backdrop, remain visible at the sides of the frame.\n\n<Picture 1> is the character reference sheet: its facial close-up and front, side and back full-body views show the same adult woman, her distinctive hairstyle, facial features, accessories and complete outfit.\n\n<Subject 1> is the adult woman shown in <Picture 1>. She has a large, voluminous dark-brown natural-texture afro arranged in two rounded lobes with a central part, creating a distinctive bow-like silhouette. She has expressive brown eyes, vivid green eyeshadow, black winged eyeliner, defined brows, warm blush and full red lips. She wears large faceted spherical green earrings, layered pearl and gold necklaces, a structured gold ribbed high-neck top with matching textured cuffs and hem, a fitted deep-red sleeveless tailored vest, and a brown leopard-print long-sleeved blouse with a sculptural leopard-print ruffle over one shoulder and down the front. She wears dark straight-leg black jeans and brown leather ankle boots with low block heels. Her face, hairstyle, makeup, accessories, outfit, proportions and visible front, profile and back details match <Picture 1> and remain stable throughout the entire video.\n\nsummary:\n\n[video editing + full character replacement] Replace the original male dancer in <Video 1> with <Subject 1> from <Picture 1>. She performs the same continuous expressive dance, preserving the original timing, body positions, footwork, hand gestures, turns, head movements and use of the studio floor. Preserve the fixed elevated vertical camera, white seamless backdrop, studio edges, lighting and the complete soap-bubble behavior. The result must look as though <Subject 1> was the performer originally filmed in this exact studio setup.\n\nretention_analysis:\n\n<Video 1> (source video editing): fully_preserved - preserve the uninterrupted 81-second dance, exact performance timing, shifting steps, bouncing, hip and shoulder movements, arm waves, arms held overhead, palms raised toward the bubbles, expressive hand gestures, head tilts, side-facing poses, turns, leg lifts and the performer’s limited movement area on the white paper floor. Preserve the locked high-angle vertical framing, seamless white backdrop, side studio equipment, dark surrounding studio edges, soft directional lighting, shadows and the constant field of drifting translucent bubbles.\n\n<Picture 1> (character reference): identity_and_appearance_reference - use the reference sheet as the definitive source for <Subject 1>'s facial identity, two-lobed textured afro silhouette, green eye makeup, red lips, green spherical earrings, layered necklaces, gold ribbed pieces, deep-red vest, leopard-print blouse and ruffle, black jeans, and brown ankle boots.\n\n<Subject 1> (replacement performer): fully_preserved - the same recognizable woman from <Picture 1> appears throughout every movement. Her face, hairstyle, makeup, jewelry, clothing and body proportions remain consistent through frontal, three-quarter, profile and partial back angles. Her afro, earrings, necklaces and ruffled blouse show subtle natural secondary movement while dancing. The original man’s identity, beard, glasses, white shirt, black joggers, watch and sneakers do not remain.\n\ndetailed_description:\n\n[Shot 1] One uninterrupted vertical studio-dance shot. <Subject 1> dances alone on the white seamless paper floor before the tall off-white paper backdrop. The camera remains in its source position above her, looking downward, with her full figure centered and the studio edges visible to either side.\n\nShe exactly reproduces the source choreography: small alternating steps and weight shifts; soft knee bends and rhythmic bouncing; loose upper-body sways; hip and shoulder accents; arms extended sideways; upward reaches with both hands; palms and fingers moving through the drifting bubbles; hands framing her face; expressive wrist movements; brief side-facing and turned poses; head tilts; and playful, fluid gestures. Preserve every motion’s original timing, direction, tempo and spatial placement.\n\nThe soap bubbles are a required preserved environmental element. Maintain their density, varied sizes, transparent iridescent appearance, movement through foreground and background, occasional overlap with the performer, and natural motion across the frame. Do not remove, reduce, replace or stylize the bubbles.\n\nWhen the source performer removes and holds his glasses during the latter part of the dance, preserve the hand and arm choreography but do not introduce glasses or any other new prop. <Subject 1> remains without eyewear, consistent with <Picture 1>.\n\nHer brown boots must make natural contact with the paper floor during all steps and weight shifts. Her tailored vest, leopard-print sleeves, sculptural ruffle, earrings and necklaces retain their exact reference design while responding naturally to movement. Maintain stable facial identity and a coherent two-lobed afro silhouette without morphing, duplication, disappearing accessories or wardrobe changes.\n\nPreserve the source studio lighting, white backdrop, paper-floor curvature, side stands, dark outer studio areas, framing and continuous uncut camera view. Do not add people, props, text, logos, scene changes, cuts or transitions.\n\noverall_soundscape:\n\nThe source video contains no audio track. The output remains silent, with no added dialogue, ambient sound, music or sound effects.\n\nnon_diegetic_music:\n\nN/A",
+        294,
+        480,
+        598087762489244,
+        "randomize",
+        true,
+        true,
+        4
+      ],
+      "widgets_values_named": {
+        "prompt": "subject_definitions:\n\n<Video 1> is the source video for the editing task: one continuous vertical studio dance performance, approximately 81 seconds long. A solo adult man dances on a white seamless paper sweep in front of a large off-white backdrop. Numerous translucent soap bubbles drift continuously across the foreground, around the performer, and against the backdrop. The camera is fixed in a high, slightly downward-looking vertical view, capturing his full body and the floor. Parts of the studio, including dark floor areas, side lighting stands and the edges of the paper backdrop, remain visible at the sides of the frame.\n\n<Picture 1> is the character reference sheet: its facial close-up and front, side and back full-body views show the same adult woman, her distinctive hairstyle, facial features, accessories and complete outfit.\n\n<Subject 1> is the adult woman shown in <Picture 1>. She has a large, voluminous dark-brown natural-texture afro arranged in two rounded lobes with a central part, creating a distinctive bow-like silhouette. She has expressive brown eyes, vivid green eyeshadow, black winged eyeliner, defined brows, warm blush and full red lips. She wears large faceted spherical green earrings, layered pearl and gold necklaces, a structured gold ribbed high-neck top with matching textured cuffs and hem, a fitted deep-red sleeveless tailored vest, and a brown leopard-print long-sleeved blouse with a sculptural leopard-print ruffle over one shoulder and down the front. She wears dark straight-leg black jeans and brown leather ankle boots with low block heels. Her face, hairstyle, makeup, accessories, outfit, proportions and visible front, profile and back details match <Picture 1> and remain stable throughout the entire video.\n\nsummary:\n\n[video editing + full character replacement] Replace the original male dancer in <Video 1> with <Subject 1> from <Picture 1>. She performs the same continuous expressive dance, preserving the original timing, body positions, footwork, hand gestures, turns, head movements and use of the studio floor. Preserve the fixed elevated vertical camera, white seamless backdrop, studio edges, lighting and the complete soap-bubble behavior. The result must look as though <Subject 1> was the performer originally filmed in this exact studio setup.\n\nretention_analysis:\n\n<Video 1> (source video editing): fully_preserved - preserve the uninterrupted 81-second dance, exact performance timing, shifting steps, bouncing, hip and shoulder movements, arm waves, arms held overhead, palms raised toward the bubbles, expressive hand gestures, head tilts, side-facing poses, turns, leg lifts and the performer’s limited movement area on the white paper floor. Preserve the locked high-angle vertical framing, seamless white backdrop, side studio equipment, dark surrounding studio edges, soft directional lighting, shadows and the constant field of drifting translucent bubbles.\n\n<Picture 1> (character reference): identity_and_appearance_reference - use the reference sheet as the definitive source for <Subject 1>'s facial identity, two-lobed textured afro silhouette, green eye makeup, red lips, green spherical earrings, layered necklaces, gold ribbed pieces, deep-red vest, leopard-print blouse and ruffle, black jeans, and brown ankle boots.\n\n<Subject 1> (replacement performer): fully_preserved - the same recognizable woman from <Picture 1> appears throughout every movement. Her face, hairstyle, makeup, jewelry, clothing and body proportions remain consistent through frontal, three-quarter, profile and partial back angles. Her afro, earrings, necklaces and ruffled blouse show subtle natural secondary movement while dancing. The original man’s identity, beard, glasses, white shirt, black joggers, watch and sneakers do not remain.\n\ndetailed_description:\n\n[Shot 1] One uninterrupted vertical studio-dance shot. <Subject 1> dances alone on the white seamless paper floor before the tall off-white paper backdrop. The camera remains in its source position above her, looking downward, with her full figure centered and the studio edges visible to either side.\n\nShe exactly reproduces the source choreography: small alternating steps and weight shifts; soft knee bends and rhythmic bouncing; loose upper-body sways; hip and shoulder accents; arms extended sideways; upward reaches with both hands; palms and fingers moving through the drifting bubbles; hands framing her face; expressive wrist movements; brief side-facing and turned poses; head tilts; and playful, fluid gestures. Preserve every motion’s original timing, direction, tempo and spatial placement.\n\nThe soap bubbles are a required preserved environmental element. Maintain their density, varied sizes, transparent iridescent appearance, movement through foreground and background, occasional overlap with the performer, and natural motion across the frame. Do not remove, reduce, replace or stylize the bubbles.\n\nWhen the source performer removes and holds his glasses during the latter part of the dance, preserve the hand and arm choreography but do not introduce glasses or any other new prop. <Subject 1> remains without eyewear, consistent with <Picture 1>.\n\nHer brown boots must make natural contact with the paper floor during all steps and weight shifts. Her tailored vest, leopard-print sleeves, sculptural ruffle, earrings and necklaces retain their exact reference design while responding naturally to movement. Maintain stable facial identity and a coherent two-lobed afro silhouette without morphing, duplication, disappearing accessories or wardrobe changes.\n\nPreserve the source studio lighting, white backdrop, paper-floor curvature, side stands, dark outer studio areas, framing and continuous uncut camera view. Do not add people, props, text, logos, scene changes, cuts or transitions.\n\noverall_soundscape:\n\nThe source video contains no audio track. The output remains silent, with no added dialogue, ambient sound, music or sound effects.\n\nnon_diegetic_music:\n\nN/A",
+        "window_frames": 294,
+        "short_edge": 480,
+        "seed": 598087762489244,
+        "control_after_generate": "randomize",
+        "use_keystone": true,
+        "use_capstone": true,
+        "capstone_start_step": 4
+      }
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      28,
+      23,
+      0,
+      25,
+      0,
+      "VIDEO"
+    ],
+    [
+      29,
+      25,
+      0,
+      8,
+      0,
+      "VIDEO"
+    ],
+    [
+      30,
+      3,
+      0,
+      26,
+      0,
+      "MODEL"
+    ],
+    [
+      31,
+      4,
+      0,
+      26,
+      1,
+      "CLIP"
+    ],
+    [
+      32,
+      5,
+      0,
+      26,
+      2,
+      "VAE"
+    ],
+    [
+      33,
+      6,
+      0,
+      26,
+      3,
+      "VAE"
+    ],
+    [
+      34,
+      14,
+      0,
+      26,
+      4,
+      "SAMPLER"
+    ],
+    [
+      35,
+      15,
+      0,
+      26,
+      5,
+      "SIGMAS"
+    ],
+    [
+      36,
+      8,
+      0,
+      26,
+      6,
+      "IMAGE"
+    ],
+    [
+      37,
+      8,
+      1,
+      26,
+      7,
+      "AUDIO"
+    ],
+    [
+      38,
+      9,
+      0,
+      26,
+      8,
+      "IMAGE"
+    ],
+    [
+      39,
+      26,
+      0,
+      19,
+      0,
+      "IMAGE"
+    ],
+    [
+      40,
+      26,
+      1,
+      19,
+      1,
+      "AUDIO"
+    ],
+    [
+      6,
+      19,
+      0,
+      20,
+      0,
+      "VIDEO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7627768444385563,
+      "offset": [
+        3.0472685282410907,
+        153.91525557830755
+      ]
+    },
+    "frontendVersion": "1.58.5"
+  },
+  "version": 0.4
+}
