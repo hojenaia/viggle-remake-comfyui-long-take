@@ -29,7 +29,7 @@ The character reference sheet is included in this repository. Copy it to `ComfyU
 
 ## Comparison frames
 
-These are the first and last frames from the 1:23 test. In each comparison, the **left** panel is Context Protection, the **center** panel is the original long-video node, and the **right** panel is the source video.
+These are the first and last frames from the 1:23 test. In each comparison, the **left** panel is the source video, the **center** panel is the original long-video node, and the **right** panel is Context Protection.
 
 **First frame**
 
